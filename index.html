@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suman's Portfolio | Data Scientist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Terminal Mode Toggle Styles */
+        body.terminal-mode {
+            font-family: 'Fira Code', monospace !important;
+            background-color: #000000 !important;
+            color: #00ff41 !important;
+        }
+
+        body.terminal-mode * {
+            border-color: #00ff41 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        body.terminal-mode nav,
+        body.terminal-mode footer,
+        body.terminal-mode .glass,
+        body.terminal-mode div {
+            background: #000000 !important;
+            backdrop-filter: none !important;
+        }
+
+        body.terminal-mode .text-gradient,
+        body.terminal-mode .text-accent-cyan,
+        body.terminal-mode .text-accent-purple,
+        body.terminal-mode .text-accent-pink {
+            background: none !important;
+            -webkit-text-fill-color: #00ff41 !important;
+            color: #00ff41 !important;
+        }
+
+        body.terminal-mode img {
+            filter: grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(50deg) saturate(500%) !important;
+            border: 1px solid #00ff41;
+        }
+
+        body.terminal-mode button {
+            border: 1px solid #00ff41 !important;
+            background: #000 !important;
+            color: #00ff41 !important;
+            border-radius: 0 !important;
+        }
+
+        body.terminal-mode ::-webkit-scrollbar-thumb {
+            background: #00ff41 !important;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                        },
+                        accent: {
+                            cyan: '#00f2ff',
+                            purple: '#bd00ff',
+                            pink: '#ff0055',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Glassmorphism v2 (Spotlight Effect) */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Liquid Navbar */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+            z-index: 9999;
+        }
+
+        .mobile-nav ul {
+            display: flex;
+            width: 350px;
+        }
+
+        .mobile-nav ul li {
+            position: relative;
+            list-style: none;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+        }
+
+        .mobile-nav ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .mobile-nav ul li a .icon {
+            position: relative;
+            display: block;
+            line-height: 75px;
+            font-size: 1.5em;
+            text-align: center;
+            transition: 0.5s;
+            color: white;
+        }
+
+        .mobile-nav ul li.active a .icon {
+            transform: translateY(-32px);
+            color: black;
+        }
+
+        .mobile-nav ul li a .text {
+            position: absolute;
+            color: white;
+            font-weight: 400;
+            font-size: 0.75em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-nav ul li.active a .text {
+            opacity: 1;
+            transform: translateY(10px);
+        }
+
+        .indicator {
+            position: absolute;
+            top: -50%;
+            width: 70px;
+            height: 70px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 6px solid #000000;
+            transition: 0.5s;
+        }
+
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -22px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border-top-right-radius: 20px;
+            box-shadow: 1px -10px 0 0 #000000;
+        }
+
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -22px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border-top-left-radius: 20px;
+            box-shadow: -1px -10px 0 0 #000000;
+        }
+
+        .mobile-nav ul li:nth-child(1).active~.indicator {
+            transform: translateX(calc(70px * 0));
+        }
+
+        .mobile-nav ul li:nth-child(2).active~.indicator {
+            transform: translateX(calc(70px * 1));
+        }
+
+        .mobile-nav ul li:nth-child(3).active~.indicator {
+            transform: translateX(calc(70px * 2));
+        }
+
+        .mobile-nav ul li:nth-child(4).active~.indicator {
+            transform: translateX(calc(70px * 3));
+        }
+
+        .mobile-nav ul li:nth-child(5).active~.indicator {
+            transform: translateX(calc(70px * 4));
+        }
+
+        /* Dynamic Spotlight Gradient */
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(255, 255, 255, 0.06),
+                    transparent 40%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .glass:hover::before {
+            opacity: 1;
+        }
+
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #00f2ff, #bd00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+    </style>
+    <style>
+        /* 3D Flip Card Utilities */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        .group:hover .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Scrollbar Hide */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        /* Floating Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Tech Border Container */
+        .tech-border-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .tech-border-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #00f2ff, #bd00ff, #00f2ff);
+            background-size: 400% 400%;
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+            border-radius: 20px;
+            animation: gradientBorder 3s ease infinite;
+        }
+
+        @keyframes gradientBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Hide Default Cursor (Desktop Only) */
+        @media (min-width: 768px) {
+
+            body,
+            a,
+            button,
+            input,
+            textarea {
+                cursor: none !important;
+            }
+        }
+    </style>
+    <!-- tsParticles CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.0.3/tsparticles.engine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3.0.3/tsparticles.slim.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+
+<body class="relative bg-dark-900 text-white overflow-x-hidden selection:bg-accent-purple/30 selection:text-white">
+
+
+
+    <!-- Living Code Background -->
+
+    <!-- Living Code Background -->
+    <div id="code-background"
+        class="fixed inset-0 z-0 pointer-events-none opacity-10 overflow-hidden font-mono text-xs md:text-sm text-accent-cyan leading-relaxed select-none mix-blend-screen">
+        <div id="code-content" class="animate-code-scroll whitespace-pre"></div>
+    </div>
+
+    <!-- Background Effects -->
+    <div id="tsparticles" class="fixed inset-0 z-[-1]"></div>
+
+    <style>
+        @keyframes codeScroll {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .animate-code-scroll {
+            animation: codeScroll 60s linear infinite;
+        }
+
+        /* Liquid Fill Animation */
+        .liquid-text {
+            position: relative;
+            color: rgba(255, 255, 255, 0.1);
+            /* Hollow Text Color */
+            -webkit-text-stroke: 1px rgba(0, 242, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .liquid-text::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            color: #00f2ff;
+            /* Liquid Color */
+            -webkit-text-stroke: 0px transparent;
+            overflow: hidden;
+            border-bottom: 2px solid #00f2ff;
+            /* Water Surface */
+            animation: liquidFill 2.5s cubic-bezier(0.37, 0, 0.63, 1) forwards;
+        }
+
+        @keyframes liquidFill {
+            0% {
+                height: 0%;
+            }
+
+            40% {
+                height: 40%;
+            }
+
+            60% {
+                height: 50%;
+            }
+
+            100% {
+                height: 100%;
+                border-bottom: none;
+            }
+        }
+
+        /* Infinite Ticker Footer */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background-color: black;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 20s linear infinite;
+        }
+
+        .ticker-move:hover {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 3rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .ticker-item:hover {
+            color: #00f2ff;
+            -webkit-text-stroke: 0px;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+
+    <!-- Confusion Matrix Easter Egg CSS -->
+    <style>
+        .matrix-overlay {
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .matrix-cell {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 242, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .matrix-cell:hover::before {
+            opacity: 1;
+        }
+
+        .matrix-number {
+            animation: countUp 1.5s ease-out forwards;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .matrix-glow {
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+        }
+    </style>
+
+    <!-- Confusion Matrix Modal -->
+    <div id="matrix-modal"
+        class="fixed inset-0 bg-black/90 matrix-overlay z-[9999] hidden flex items-center justify-center p-4">
+        <div class="relative max-w-2xl w-full bg-gray-900 rounded-2xl border border-white/10 p-8 matrix-glow">
+            <!-- Close Button -->
+            <button id="close-matrix" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Title -->
+            <h3 class="text-2xl font-bold text-center mb-2 text-accent-cyan">Confusion Matrix</h3>
+            <p class="text-center text-gray-400 text-sm mb-8">Customer Churn Prediction Model</p>
+
+            <!-- Matrix Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <!-- True Positive -->
+                <div
+                    class="matrix-cell bg-green-900/20 border-2 border-green-500/50 rounded-xl p-6 text-center hover:bg-green-900/30 transition-all">
+                    <div class="text-xs text-green-400 font-mono mb-2">TRUE POSITIVE</div>
+                    <div class="matrix-number text-5xl font-bold text-green-400">847</div>
+                    <div class="text-xs text-gray-500 mt-2">Correctly Predicted Churn</div>
+                </div>
+
+                <!-- False Positive -->
+                <div
+                    class="matrix-cell bg-orange-900/20 border-2 border-orange-500/50 rounded-xl p-6 text-center hover:bg-orange-900/30 transition-all">
+                    <div class="text-xs text-orange-400 font-mono mb-2">FALSE POSITIVE</div>
+                    <div class="matrix-number text-5xl font-bold text-orange-400">123</div>
+                    <div class="text-xs text-gray-500 mt-2">False Alarm</div>
+                </div>
+
+                <!-- False Negative -->
+                <div
+                    class="matrix-cell bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6 text-center hover:bg-red-900/30 transition-all">
+                    <div class="text-xs text-red-400 font-mono mb-2">FALSE NEGATIVE</div>
+                    <div class="matrix-number text-5xl font-bold text-red-400">89</div>
+                    <div class="text-xs text-gray-500 mt-2">Missed Churn</div>
+                </div>
+
+                <!-- True Negative -->
+                <div
+                    class="matrix-cell bg-blue-900/20 border-2 border-blue-500/50 rounded-xl p-6 text-center hover:bg-blue-900/30 transition-all">
+                    <div class="text-xs text-blue-400 font-mono mb-2">TRUE NEGATIVE</div>
+                    <div class="matrix-number text-5xl font-bold text-blue-400">1241</div>
+                    <div class="text-xs text-gray-500 mt-2">Correctly Predicted Stay</div>
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-white/5 rounded-lg p-3">
+                    <div class="text-xs text-gray-400 mb-1">Accuracy</div>
+                    <div class="text-xl font-bold text-accent-cyan">90.8%</div>
+                </div>
+                <div class="bg-white/5 rounded-lg p-3">
+                    <div class="text-xs text-gray-400 mb-1">Precision</div>
+                    <div class="text-xl font-bold text-accent-purple">87.3%</div>
+                </div>
+                <div class="bg-white/5 rounded-lg p-3">
+                    <div class="text-xs text-gray-400 mb-1">Recall</div>
+                    <div class="text-xl font-bold text-accent-pink">90.5%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liquid Intro Overlay -->
+    <div id="liquid-intro"
+        class="fixed inset-0 bg-black z-[10000] flex flex-col items-center justify-center cursor-default">
+        <h1 class="text-6xl md:text-8xl font-black tracking-widest liquid-text font-mono" data-text="SUMAN">SUMAN</h1>
+        <p class="mt-4 text-xs tracking-[0.5em] text-accent-cyan/50 animate-pulse">INITIALIZING CORE...</p>
+    </div>
+
+    <!-- Liquid Intro Script -->
+    <script>
+        const liquidIntro = document.getElementById('liquid-intro');
+        if (liquidIntro) {
+            // Wait for 3 seconds (Animation 2.5s + 0.5s pause)
+            setTimeout(() => {
+                liquidIntro.style.transition = 'opacity 0.8s ease-out';
+                liquidIntro.style.opacity = '0';
+                liquidIntro.style.pointerEvents = 'none';
+            }, 3000);
+        }
+    </script>
+
+    <!-- Custom Cursor -->
+    <div
+        class="cursor-dot fixed top-0 left-0 w-4 h-4 bg-accent-cyan rounded-full z-[9999] pointer-events-none hidden md:block mix-blend-difference transform -translate-x-1/2 -translate-y-1/2">
+    </div>
+    <div
+        class="cursor-outline fixed top-0 left-0 w-10 h-10 border border-accent-cyan/50 rounded-full z-[9999] pointer-events-none hidden md:block transition-all duration-100 ease-out transform -translate-x-1/2 -translate-y-1/2">
+    </div>
+
+    <!-- Desktop Navigation (Top) -->
+    <!-- Desktop Overlay Navigation -->
+    <nav class="fixed w-full z-50 top-0 start-0 transition-all duration-300 hidden md:block" id="navbar">
+        <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-6">
+            <!-- Left: Brand -->
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse z-[60]">
+                <span
+                    class="self-center text-xl font-bold whitespace-nowrap tracking-widest hover:text-accent-cyan transition-colors">SUMAN</span>
+            </a>
+
+            <!-- Center: Menu Trigger -->
+            <button id="menu-trigger"
+                class="absolute left-1/2 -translate-x-1/2 z-[60] group flex flex-col items-center gap-1 cursor-pointer">
+                <div class="w-12 h-0.5 bg-white group-hover:w-16 transition-all duration-300"></div>
+                <span
+                    class="text-[10px] tracking-[0.2em] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -translate-y-2 group-hover:translate-y-1">MENU</span>
+            </button>
+
+            <!-- Right: Contact -->
+            <div class="z-[60]">
+                <a href="#contact"
+                    class="text-sm font-bold tracking-widest hover:text-accent-cyan transition-colors">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full Screen Overlay -->
+    <div id="nav-overlay"
+        class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 transform -translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] flex flex-col items-center justify-center hidden md:flex">
+
+        <!-- Close Button (Center Top) -->
+        <button id="menu-close"
+            class="absolute top-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer group">
+            <div class="w-12 h-0.5 bg-white group-hover:bg-red-500 transition-colors duration-300"></div>
+            <span
+                class="text-[10px] tracking-[0.2em] font-bold mt-2 group-hover:text-red-500 transition-colors">CLOSE</span>
+        </button>
+
+        <!-- Menu Links -->
+        <div class="space-y-4 text-center">
+            <a href="#home"
+                class="nav-link block text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-white hover:tracking-wide transition-all duration-500 cursor-pointer"
+                onclick="closeNav()">HOME</a>
+            <a href="#about"
+                class="nav-link block text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-white hover:tracking-wide transition-all duration-500 cursor-pointer"
+                onclick="closeNav()">ABOUT ME</a>
+            <a href="#projects"
+                class="nav-link block text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-white hover:tracking-wide transition-all duration-500 cursor-pointer"
+                onclick="closeNav()">PROJECTS</a>
+            <a href="#skills"
+                class="nav-link block text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-white hover:tracking-wide transition-all duration-500 cursor-pointer"
+                onclick="closeNav()">SKILLS</a>
+            <a href="#contact"
+                class="nav-link block text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 hover:to-white hover:tracking-wide transition-all duration-500 cursor-pointer"
+                onclick="closeNav()">CONTACT</a>
+        </div>
+
+        <!-- Decorative Background Blur -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <!-- Sound Toggle (Bottom Left) -->
+        <button id="sound-toggle"
+            class="absolute bottom-10 left-10 flex items-center gap-2 text-gray-500 hover:text-white transition-colors text-xs font-mono">
+            <i class="fa-solid fa-volume-high"></i> <span id="sound-text">SOUND: ON</span>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation (Bottom) -->
+    <nav class="fixed w-full z-50 bottom-0 start-0 glass border-t border-white/5 md:hidden pb-safe">
+        <div class="grid grid-cols-5 h-16 max-w-lg mx-auto font-medium">
+            <a href="#home"
+                class="inline-flex flex-col items-center justify-center px-5 hover:bg-white/5 group transition-colors">
+                <i class="fa-solid fa-house text-gray-400 group-hover:text-accent-cyan mb-1 text-xl"></i>
+                <span class="text-[10px] text-gray-400 group-hover:text-accent-cyan">Home</span>
+            </a>
+            <a href="#about"
+                class="inline-flex flex-col items-center justify-center px-5 hover:bg-white/5 group transition-colors">
+                <i class="fa-solid fa-user text-gray-400 group-hover:text-accent-purple mb-1 text-xl"></i>
+                <span class="text-[10px] text-gray-400 group-hover:text-accent-purple">About</span>
+            </a>
+            <a href="#skills"
+                class="inline-flex flex-col items-center justify-center px-5 hover:bg-white/5 group transition-colors">
+                <i class="fa-solid fa-code text-gray-400 group-hover:text-accent-pink mb-1 text-xl"></i>
+                <span class="text-[10px] text-gray-400 group-hover:text-accent-pink">Skills</span>
+            </a>
+            <a href="#projects"
+                class="inline-flex flex-col items-center justify-center px-5 hover:bg-white/5 group transition-colors">
+                <i class="fa-solid fa-layer-group text-gray-400 group-hover:text-blue-500 mb-1 text-xl"></i>
+                <span class="text-[10px] text-gray-400 group-hover:text-blue-500">Projects</span>
+            </a>
+            <a href="mailto:banerjeesuman339@gmail.com"
+                class="inline-flex flex-col items-center justify-center px-5 hover:bg-white/5 group transition-colors">
+                <i class="fa-solid fa-envelope text-gray-400 group-hover:text-green-500 mb-1 text-xl"></i>
+                <span class="text-[10px] text-gray-400 group-hover:text-green-500">Message Me</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Text Content -->
+            <div class="text-center md:text-left space-y-6 order-2 md:order-1 relative z-10">
+                <div
+                    class="inline-block p-2 px-4 rounded-full glass border border-accent-cyan/20 text-accent-cyan text-sm font-mono mb-4 animate-fade-in">
+                    <span class="mr-2">●</span>Available for work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold font-sans tracking-tight mb-4 animate-slide-up"
+                    style="animation-delay: 0.1s;">
+                    I'm <span class="text-gradient">Suman Banerjee</span> <br>
+                    <span id="typewriter-text" class="text-white"></span><span
+                        class="animate-pulse text-accent-cyan">|</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl max-w-2xl font-light animate-slide-up"
+                    style="animation-delay: 0.2s;">
+                    Hi, I'm a passionate <strong class="text-white">AI/ML Student</strong> & <strong
+                        class="text-white">Data Analyst</strong>.
+                    I build predictive models, analyze complex datasets, and create intelligent systems that solve
+                    real-world problems.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center mt-8 animate-slide-up"
+                    style="animation-delay: 0.3s;">
+                    <a href="#projects"
+                        class="group px-8 py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-all flex items-center gap-2">
+                        View Projects <i
+                            class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#contact"
+                        class="px-8 py-3 rounded-lg glass hover:bg-white/10 transition-all text-white font-medium border border-white/10">
+                        Get in Touch
+                    </a>
+                </div>
+                <!-- Resume Buttons -->
+                <div class="flex gap-4 justify-center md:justify-start mt-6 animate-slide-up"
+                    style="animation-delay: 0.4s;">
+                    <a href="./sumanresume.pdf" target="_blank"
+                        class="px-6 py-2 rounded-full border border-accent-cyan/50 text-accent-cyan hover:bg-accent-cyan/10 transition-all text-sm flex items-center gap-2">
+                        <i class="fa-regular fa-eye"></i> View Resume
+                    </a>
+                    <a href="./sumanresume.pdf" download="Suman_Banerjee_Resume"
+                        class="px-6 py-2 rounded-full border border-accent-purple/50 text-accent-purple hover:bg-accent-purple/10 transition-all text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> Download CV
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 gap-8 mt-12 pt-10 border-t border-white/5 animate-slide-up"
+                    style="animation-delay: 0.5s;">
+                    <div>
+                        <h3 class="text-3xl font-bold text-white">15+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wider mt-1">ML Models</p>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-white">10+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wider mt-1">Projects</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Image -->
+            <!-- Profile Image -->
+            <!-- Profile Image -->
+            <div class="order-1 md:order-2 flex justify-center relative">
+                <div class="relative w-full max-w-sm animate-slide-up tech-border-container animate-float"
+                    style="animation-delay: 0.2s;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-accent-cyan to-accent-purple opacity-20 blur-xl rounded-2xl animate-pulse">
+                    </div>
+                    <img src="./images/suman.png" alt="Suman Banerjee"
+                        class="relative z-10 w-full h-auto rounded-2xl border-2 border-white/10 hover:grayscale-0 grayscale transition-all duration-500 shadow-2xl">
+
+                    <!-- Decorative Corners -->
+                    <div
+                        class="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-accent-cyan rounded-tl-lg z-20">
+                    </div>
+                    <div
+                        class="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-accent-purple rounded-br-lg z-20">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 relative">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Terminal Aesthetic -->
+            <div
+                class="order-2 md:order-1 glass rounded-xl overflow-hidden shadow-2xl border border-gray-800 transform hover:scale-[1.01] transition-transform duration-500">
+                <div class="bg-gray-900 px-4 py-2 flex items-center justify-between border-b border-gray-800">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-4 text-xs text-gray-500 font-mono hidden sm:block">suman@portfolio:~</span>
+                    </div>
+                    <button id="terminal-trigger-about"
+                        class="text-xs font-mono flex items-center gap-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1.5 rounded transition-all shadow-[0_0_10px_rgba(34,197,94,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.2)] animate-pulse hover:animate-none cursor-pointer">
+                        <i class="fa-solid fa-terminal"></i> Open Terminal
+                    </button>
+                </div>
+                <div class="p-6 font-mono text-sm md:text-base space-y-4 text-gray-300">
+                    <div>
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span
+                            class="text-yellow-400">whoami</span>
+                    </div>
+                    <div class="pl-4 border-l-2 border-gray-800">
+                        <p>> AI/ML Student</p>
+                        <p>> Data Science / analyst enthusiast</p>
+                        <p>> Problem Solver</p>
+                    </div>
+
+                    <div>
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span
+                            class="text-yellow-400">cat</span> <span class="text-purple-400">bio.txt</span>
+                    </div>
+                    <div class="pl-4 text-gray-400 leading-relaxed">
+                        I am a passionate B.Tech CSE (AI & ML) student at Meghnad Saha Institute of Technology,
+                        Kolkata.
+                        I have hands-on experience with Python, Pandas, NumPy, and Machine Learning, enjoying
+                        turning
+                        theoretical concepts into practical projects.
+                    </div>
+
+                    <div>
+                        <span class="text-green-400">➜</span> <span class="text-blue-400">~</span> <span
+                            class="text-white animate-pulse">_</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 md:order-2 space-y-6">
+                <h2 class="text-3xl md:text-5xl font-bold hacker-text" data-value="About Me"><span
+                        class="text-accent-purple">About</span> Me</h2>
+                <div class="w-20 h-1 bg-accent-purple rounded-full"></div>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    I am a passionate and motivated B.Tech CSE (Artificial Intelligence & Machine Learning) student
+                    at
+                    Meghnad Saha Institute of Technology, Kolkata, with a strong interest in data-driven problem
+                    solving
+                    and intelligent systems.
+                </p>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    I have worked on projects such as Data Analysis using Pandas, a NumPy-based Image Processor,
+                    which
+                    have strengthened my analytical thinking and coding skills. I am continuously improving my
+                    knowledge
+                    in Machine Learning, Web Development, and DSA.
+                </p>
+                <div class="flex gap-4 pt-4">
+                    <a href="https://github.com/codewithsumanbyte" target="_blank"
+                        class="text-white hover:text-accent-cyan text-2xl transition-colors"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/suman-banerjee-b83113270/" target="_blank"
+                        class="text-white hover:text-blue-500 text-2xl transition-colors"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 hacker-text" data-value="My Experience">My <span
+                    class="text-accent-cyan">Experience</span></h2>
+
+            <div class="space-y-8">
+                <!-- Experience Item 1 -->
+                <div class="glass p-8 rounded-2xl border-l-4 border-accent-cyan relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-briefcase text-6xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Machine Learning Intern</h3>
+                        <p class="text-accent-cyan font-mono mb-4">CODEC TECHNOLOGIES</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <li>Worked on real-world ML projects and data analysis tasks.</li>
+                            <li>Gained hands-on experience in building scalable AI solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="glass p-8 rounded-2xl border-l-4 border-accent-purple relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-laptop-code text-6xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Data Science Intern</h3>
+                        <p class="text-accent-purple font-mono mb-4">YBI FOUNDATION</p>
+                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <li>Collaborated on data-driven projects and enhanced analytical skills.</li>
+                            <li>Applied Python libraries like Pandas and NumPy for efficient data processing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-4 bg-black relative">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-black">
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold text-center mb-4 hacker-text" data-value="Technical Skills">
+                Technical <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-purple">Skills</span>
+            </h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-accent-cyan to-accent-purple mx-auto rounded-full mb-8">
+            </div>
+
+            <!-- Gravity Button -->
+            <!-- Interactive Skill Radar -->
+            <div class="mb-16">
+                <div class="max-w-2xl mx-auto relative group">
+                    <!-- Glow Background -->
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-accent-cyan/20 to-accent-purple/20 rounded-full blur-[50px] opacity-50 group-hover:opacity-100 transition-opacity">
+                    </div>
+
+                    <div class="relative bg-black/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 md:p-10">
+                        <canvas id="skillRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-12">
+                <button id="gravity-btn"
+                    class="group relative px-6 py-3 bg-white/5 border border-white/10 rounded-full overflow-hidden hover:bg-white/10 transition-all">
+                    <span class="relative z-10 flex items-center gap-2 text-sm font-mono text-accent-cyan">
+                        <i class="fa-solid fa-cube"></i> Enable Physics
+                    </span>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-accent-cyan/20 to-accent-purple/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                </button>
+            </div>
+
+            <!-- Physics Canvas Container -->
+            <div id="physics-canvas"
+                class="w-full h-[600px] border border-white/5 rounded-2xl bg-black/50 overflow-hidden relative hidden">
+                <p class="absolute top-4 left-4 text-xs text-gray-500 font-mono pointer-events-none">Drag the boxes!</p>
+            </div>
+
+            <div id="skills-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Programming & Scripting -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-code text-blue-400"></i> Programming</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between"><span class="text-gray-300">Python</span><span
+                                class="text-xs text-blue-400">Advanced</span></div>
+                        <div class="w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <div class="flex items-center justify-between"><span class="text-gray-300">Basic
+                                JavaScript</span><span class="text-xs text-blue-400">Intermediate</span></div>
+                        <div class="w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 60%"></div>
+                        </div>
+                        <div class="flex items-center justify-between"><span class="text-gray-300">C
+                                (Fundamentals)</span><span class="text-xs text-blue-400">Basic</span></div>
+                        <div class="w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Science -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-chart-line text-orange-400"></i> Data Science</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>Pandas, NumPy
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>Data Cleaning & Preprocessing
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>Exploratory Data Analysis
+                            (EDA)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>Data Visualization
+                            (Matplotlib,
+                            Seaborn)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-orange-500"></div>Basic Statistics & Probability
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Machine Learning & AI -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-brain text-green-400"></i> ML & AI</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>Supervised & Unsupervised
+                            Learning
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>Linear & Logistic Regression
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>Model Evaluation (Metrics)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>Feature Engineering (Basics)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Databases & Tools -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-database text-pink-400"></i> Tools & DBs</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">SQL
+                            (Basic)</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">SQLite</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">Git &
+                            GitHub</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">VS Code</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">Jupyter</span>
+                    </div>
+                </div>
+
+                <!-- Web & Backend -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-globe text-cyan-400"></i> Web & Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">HTML</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">CSS</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg border border-white/5 text-sm">FastAPI
+                            (Basics)</span>
+                    </div>
+                </div>
+
+                <!-- Core CS & Soft Skills -->
+                <div
+                    class="group relative bg-gray-900/50 border border-white/5 rounded-2xl p-6 hover:bg-gray-800/50 transition-all duration-300">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><i
+                            class="fa-solid fa-lightbulb text-yellow-400"></i> Core & Soft Skills</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>Data Structures & Algo
+                            (Basics)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>OOP (Python)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>Analytical Thinking
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>Team Collaboration
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-24 px-4 relative">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 hacker-text" data-value="Certifications">
+                Certifications</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Certificate 1 -->
+                <div class="glass p-1 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="bg-gray-900/80 rounded-xl p-6 h-full flex items-start gap-4">
+                        <div
+                            class="w-16 h-16 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 shrink-0">
+                            <i class="fa-brands fa-facebook text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Python</h3>
+                            <p class="text-gray-400 mb-2">Meta</p>
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono border border-blue-500/20">Verified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="glass p-1 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="bg-gray-900/80 rounded-xl p-6 h-full flex items-start gap-4">
+                        <div
+                            class="w-16 h-16 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 shrink-0">
+                            <i class="fa-brands fa-windows text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">PowerBI</h3>
+                            <p class="text-gray-400 mb-2">Microsoft</p>
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono border border-yellow-500/20">Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-4 max-w-7xl mx-auto">
+        <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 hacker-text" data-value="Featured Projects">Featured
+            <span class="text-accent-pink">Projects</span>
+        </h2>
+        <p class="text-center text-gray-400 mb-16">Some of my recent work in Data Science and AI</p>
+
+        <div class="flex items-center justify-end mb-4 text-gray-400 text-sm gap-2 animate-pulse pr-4">
+            <i class="fa-solid fa-arrow-left"></i> Scroll <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        <div class="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-12 px-4 scrollbar-hide -mx-4 md:mx-0">
+
+            <!-- Project Card 1: Diwali Sales -->
+            <div class="flip-card group h-[450px] min-w-[85vw] md:min-w-[400px] snap-center shrink-0">
+                <div
+                    class="flip-inner relative w-full h-full text-center transition-all duration-700 transform-style-3d">
+                    <!-- Front -->
+                    <div
+                        class="flip-front absolute w-full h-full backface-hidden glass rounded-xl overflow-hidden border border-white/5 flex flex-col">
+                        <div class="h-48 bg-gray-900 relative">
+                            <img src="./images/diwali_sales.png" alt="Diwali Sale Analysis"
+                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col text-left">
+                            <h3 class="text-xl font-bold mb-2 text-accent-cyan">Diwali Sale Analysis</h3>
+                            <p class="text-gray-400 text-sm mb-4">Analyzed sales data to identify trends and revenue
+                                spikes.</p>
+                            <div class="mt-auto">
+                                <span
+                                    class="bg-accent-cyan/10 text-accent-cyan text-xs px-2 py-1 rounded border border-accent-cyan/20">Data
+                                    Analysis</span>
+                                <p class="text-xs text-center mt-4 text-gray-500 animate-pulse">Hover to see Stats <i
+                                        class="fa-solid fa-rotate"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div
+                        class="flip-back absolute w-full h-full backface-hidden rotate-y-180 bg-gray-900 rounded-xl border border-accent-cyan/50 p-6 flex flex-col justify-center items-center shadow-[0_0_30px_rgba(34,211,238,0.2)]">
+                        <h3 class="text-xl font-bold text-white mb-6">Project Stats</h3>
+                        <div class="space-y-4 w-full text-left font-mono text-sm">
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Tools</span>
+                                <span class="text-accent-cyan">Pandas, Matplotlib</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Data Points</span>
+                                <span class="text-accent-cyan">11,000+</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Impact</span>
+                                <span class="text-accent-cyan">Revenue Opt.</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/codewithsumanbyte"
+                            class="mt-8 px-6 py-2 bg-accent-cyan text-black font-bold rounded hover:bg-white transition-colors">
+                            View Code <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 2: Customer Churn -->
+            <div class="flip-card group h-[450px] min-w-[85vw] md:min-w-[400px] snap-center shrink-0">
+                <div
+                    class="flip-inner relative w-full h-full text-center transition-all duration-700 transform-style-3d">
+                    <!-- Front -->
+                    <div
+                        class="flip-front absolute w-full h-full backface-hidden glass rounded-xl overflow-hidden border border-white/5 flex flex-col">
+                        <div class="h-48 bg-gray-900 relative">
+                            <img src="./images/customer_churn.png" alt="Customer Churn"
+                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col text-left relative">
+                            <h3 class="text-xl font-bold mb-2 text-accent-purple">Churn Prediction</h3>
+                            <p class="text-gray-400 text-sm mb-4">Predictive model to identify customers likely to
+                                leave.</p>
+                            <div class="mt-auto">
+                                <span
+                                    class="bg-accent-purple/10 text-accent-purple text-xs px-2 py-1 rounded border border-accent-purple/20">Machine
+                                    Learning</span>
+                                <p class="text-xs text-center mt-4 text-gray-500 animate-pulse">Hover to see Stats <i
+                                        class="fa-solid fa-rotate"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div
+                        class="flip-back absolute w-full h-full backface-hidden rotate-y-180 bg-gray-900 rounded-xl border border-accent-purple/50 p-6 flex flex-col justify-center items-center shadow-[0_0_30px_rgba(189,0,255,0.2)] relative">
+
+                        <!-- Matrix Easter Egg Button -->
+                        <button id="matrix-trigger"
+                            class="absolute top-4 right-4 w-12 h-12 rounded-full bg-accent-purple/30 border-2 border-accent-purple flex items-center justify-center hover:bg-accent-purple hover:text-black hover:scale-110 transition-all cursor-pointer text-accent-purple shadow-lg shadow-accent-purple/50"
+                            title="View Confusion Matrix">
+                            <i class="fa-solid fa-table-cells text-lg"></i>
+                        </button>
+
+                        <h3 class="text-xl font-bold text-white mb-6">Model Metrics</h3>
+                        <div class="space-y-4 w-full text-left font-mono text-sm">
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Algorithm</span>
+                                <span class="text-accent-purple">XGBoost</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Accuracy</span>
+                                <span class="text-accent-purple">92.5%</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Dataset</span>
+                                <span class="text-accent-purple">Telco Data</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/codewithsumanbyte"
+                            class="mt-8 px-6 py-2 bg-accent-purple text-white font-bold rounded hover:bg-white hover:text-black transition-colors">
+                            View Model <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 3: Disease Classification -->
+            <div class="flip-card group h-[450px] min-w-[85vw] md:min-w-[400px] snap-center shrink-0">
+                <div
+                    class="flip-inner relative w-full h-full text-center transition-all duration-700 transform-style-3d">
+                    <!-- Front -->
+                    <div
+                        class="flip-front absolute w-full h-full backface-hidden glass rounded-xl overflow-hidden border border-white/5 flex flex-col">
+                        <div class="h-48 bg-gray-900 relative flex items-center justify-center">
+                            <i class="fa-solid fa-virus text-6xl text-accent-pink/50"></i>
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col text-left">
+                            <h3 class="text-xl font-bold mb-2 text-accent-pink">Disease Classification</h3>
+                            <p class="text-gray-400 text-sm mb-4">CNN model to classify plant diseases from leaf images.
+                            </p>
+                            <div class="mt-auto">
+                                <span
+                                    class="bg-accent-pink/10 text-accent-pink text-xs px-2 py-1 rounded border border-accent-pink/20">Deep
+                                    Learning</span>
+                                <p class="text-xs text-center mt-4 text-gray-500 animate-pulse">Hover to see Stats <i
+                                        class="fa-solid fa-rotate"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Back -->
+                    <div
+                        class="flip-back absolute w-full h-full backface-hidden rotate-y-180 bg-gray-900 rounded-xl border border-accent-pink/50 p-6 flex flex-col justify-center items-center shadow-[0_0_30px_rgba(236,72,153,0.2)]">
+                        <h3 class="text-xl font-bold text-white mb-6">CNN Performance</h3>
+                        <div class="space-y-4 w-full text-left font-mono text-sm">
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Framework</span>
+                                <span class="text-accent-pink">TensorFlow</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Val Accuracy</span>
+                                <span class="text-accent-pink">95.2%</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Classes</span>
+                                <span class="text-accent-pink">38 Types</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/codewithsumanbyte"
+                            class="mt-8 px-6 py-2 bg-accent-pink text-white font-bold rounded hover:bg-white hover:text-black transition-colors">
+                            View Repo <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-accent-purple/10 to-transparent pointer-events-none">
+        </div>
+        <div class="max-w-2xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">Let's Work <span class="text-gradient">Together</span>
+            </h2>
+            <p class="text-gray-400 mb-10 text-lg">
+                I'm currently looking for internships and new opportunities. Whether you have a question or just
+                want to
+                say hi, I'll try my best to get back to you!
+            </p>
+
+            <!-- Contact Info -->
+            <div class="space-y-4 mb-10">
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="mailto:banerjeesuman339@gmail.com"
+                        class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        <i class="fa-regular fa-envelope"></i> Say Hello
+                    </a>
+                    <a href="https://forms.gle/WFndqaxFRjMKZACq7" target="_blank"
+                        class="inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/10 hover:border-white/50 hover:scale-105 transition-all">
+                        <i class="fa-solid fa-clipboard-list"></i> Fill out Form
+                    </a>
+                </div>
+                <div class="flex flex-col gap-2 text-gray-300 mt-6">
+                    <p class="flex items-center justify-center gap-2"><i class="fa-solid fa-phone text-accent-cyan"></i>
+                        +91 8250083369</p>
+                    <p class="flex items-center justify-center gap-2"><i
+                            class="fa-solid fa-envelope text-accent-purple"></i> banerjeesuman339@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-4 mt-12 w-full">
+                <div class="flex justify-center gap-8">
+                    <a href="https://github.com/codewithsumanbyte" target="_blank"
+                        class="text-gray-400 hover:text-white text-3xl transition-colors hover:-translate-y-1 transform duration-300"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/suman-banerjee-b83113270/" target="_blank"
+                        class="text-gray-400 hover:text-blue-500 text-3xl transition-colors hover:-translate-y-1 transform duration-300"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                </div>
+                <!-- LinkedIn Message Link -->
+                <a href="https://www.linkedin.com/in/suman-banerjee-b83113270/" target="_blank"
+                    class="text-sm text-accent-cyan hover:underline">Message me on LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer: Neon Grid -->
+    <!-- Footer: Infinite Ticker -->
+    <footer class="relative bg-black z-40 pb-24 md:pb-8 border-t border-white/5">
+        <!-- Ticker Wrap -->
+        <div class="ticker-wrap group">
+            <div class="ticker-move">
+                <div class="ticker-item">OPEN FOR WORK</div>
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+                <div class="ticker-item">DATA SCIENTIST</div>
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+                <div class="ticker-item">Let's Build The Future</div>
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+                <div class="ticker-item">OPEN FOR WORK</div> <!-- Loop start -->
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+                <div class="ticker-item">DATA SCIENTIST</div>
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+                <div class="ticker-item">Let's Build The Future</div>
+                <div class="ticker-item text-transparent stroke-white stroke-1">///</div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p class="text-gray-500 font-mono text-xs tracking-widest">
+                &copy; 2026 SumanBanerjee Portfolio.
+            </p>
+
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="group flex items-center gap-2 text-sm font-bold text-white hover:text-accent-cyan transition-colors">
+                BACK TO TOP
+                <span
+                    class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent-cyan group-hover:bg-accent-cyan/10 transition-all">
+                    <i class="fa-solid fa-arrow-up transform group-hover:-translate-y-1 transition-transform"></i>
+                </span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Close mobile menu if it exists and is open (optional, depending on layout)
+                    const menu = document.getElementById('navbar-sticky');
+                    if (menu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                    }
+
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.style.opacity = '0'; // Initial state
+            observer.observe(el);
+        });
+    </script>
+    <!-- Chatbot Widget -->
+    <div id="chatbot-container"
+        class="fixed bottom-24 right-4 z-50 hidden flex-col w-80 glass rounded-2xl border border-white/10 shadow-2xl animate-fade-in overflow-hidden transform origin-bottom-right transition-all duration-300">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-accent-purple to-accent-cyan p-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                <span class="font-bold text-white text-sm">Suman's AI Assistant</span>
+            </div>
+            <button id="close-chat" class="text-white hover:text-gray-200"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Chat Body -->
+        <div id="chat-messages" class="p-4 h-64 overflow-y-auto space-y-3 bg-black/80 scrollbar-hide text-sm">
+            <div class="flex items-start gap-2">
+                <div
+                    class="w-8 h-8 rounded-full bg-accent-purple/20 flex items-center justify-center text-accent-purple shrink-0">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-gray-800 p-3 rounded-2xl rounded-tl-none text-gray-300">
+                    Hi! I'm Suman's portfolio assistant. How can I help you today?
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="px-3 pt-3 pb-1 bg-gray-900 border-t border-white/5 flex flex-wrap gap-2 justify-center">
+            <button onclick="handleQuickAction('Download Resume')"
+                class="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-xs text-accent-cyan transition-colors">📄
+                Resume</button>
+            <button onclick="handleQuickAction('Contact Info')"
+                class="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-xs text-accent-purple transition-colors">📞
+                Contact</button>
+            <button onclick="handleQuickAction('View Skills')"
+                class="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-xs text-accent-pink transition-colors">💻
+                Skills</button>
+        </div>
+
+        <!-- Input Field -->
+        <div class="p-3 bg-gray-900 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Type 'skill', 'project'..."
+                class="flex-1 bg-black/50 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-accent-purple/50">
+            <button onclick="sendUserMessage()"
+                class="w-9 h-9 rounded-full bg-gradient-to-tr from-accent-purple to-accent-cyan flex items-center justify-center text-white hover:scale-105 transition-transform"><i
+                    class="fa-solid fa-paper-plane text-xs"></i></button>
+        </div>
+    </div>
+
+    <!-- Interactive Terminal Modal -->
+    <div id="terminal-modal"
+        class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+        <div
+            class="w-full max-w-3xl bg-[#1e1e1e] rounded-lg shadow-2xl border border-[#333] overflow-hidden flex flex-col h-[600px] font-mono text-sm">
+            <!-- Terminal Header -->
+            <div class="bg-[#2d2d2d] px-4 py-2 flex items-center justify-between border-b border-[#333]">
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400">suman@portfolio: ~</span>
+                </div>
+                <button id="close-terminal" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Terminal Body -->
+            <div id="terminal-body"
+                class="flex-1 p-4 overflow-y-auto text-[#cccccc] space-y-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+                <div class="mb-4">
+                    <p class="text-green-400">Welcome to Suman's Interactive Terminal v1.0.0</p>
+                    <p>Type <span class="text-yellow-400">'help'</span> to see available commands.</p>
+                </div>
+                <!-- Output Area -->
+                <div id="terminal-output"></div>
+
+                <!-- Input Line -->
+                <div class="flex items-center gap-2">
+                    <span class="text-green-400">➜</span>
+                    <span class="text-cyan-400">~</span>
+                    <input type="text" id="terminal-input"
+                        class="flex-1 bg-transparent border-none outline-none text-[#cccccc] placeholder-gray-600 focus:ring-0 p-0"
+                        autocomplete="off" spellcheck="false" autofocus>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Floating Action Button (Chatbot) -->
+    <button id="chatbot-toggle"
+        class="fixed bottom-32 md:bottom-20 right-6 md:right-10 z-50 w-12 h-12 bg-gradient-to-tr from-accent-purple to-accent-cyan rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform animate-float">
+        <i class="fa-solid fa-message"></i>
+    </button>
+
+    <script>
+        // Chatbot Logic
+        const toggleBtn = document.getElementById('chatbot-toggle');
+        const closeBtn = document.getElementById('close-chat');
+        const chatContainer = document.getElementById('chatbot-container');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+
+        toggleBtn.addEventListener('click', () => {
+            chatContainer.classList.toggle('hidden');
+            chatContainer.classList.toggle('flex');
+            if (!chatContainer.classList.contains('hidden')) {
+                chatInput.focus();
+                toggleBtn.classList.add('hidden'); // Hide button when chat opens
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatContainer.classList.add('hidden');
+            chatContainer.classList.remove('flex');
+            toggleBtn.classList.remove('hidden'); // Show button when chat closes
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendUserMessage();
+        });
+
+        // Terminal Mode Easter Egg (Alt + T)
+        document.addEventListener('keydown', (e) => {
+            console.log(e.key);
+            if (e.altKey && (e.key === 't' || e.key === 'T')) {
+                document.body.classList.toggle('terminal-mode');
+                const isTerminal = document.body.classList.contains('terminal-mode');
+                // Optional: Play a sound or show a message
+                console.log(isTerminal ? "SYSTEM OVERRIDE: TERMINAL MODE ENGAGED" : "SYSTEM RESTORED");
+            }
+        });
+
+
+
+        function addMessage(text, isUser = false) {
+            const div = document.createElement('div');
+            div.className = `flex items-start gap-2 ${isUser ? 'flex-row-reverse' : ''} animate-fade-in`;
+
+            const content = isUser ?
+                `<div class="bg-accent-purple/80 p-3 rounded-2xl rounded-tr-none text-white text-sm max-w-[80%] break-words">${text}</div>` :
+                `<div class="w-8 h-8 rounded-full bg-accent-purple/20 flex items-center justify-center text-accent-purple shrink-0"><i class="fa-solid fa-robot"></i></div>
+                 <div class="bg-gray-800 p-3 rounded-2xl rounded-tl-none text-gray-300 text-sm max-w-[85%] leading-relaxed">${text}</div>`;
+
+            div.innerHTML = content;
+            chatMessages.appendChild(div);
+            // Smooth scroll to bottom
+            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        }
+
+        function handleQuickAction(action) {
+            // Map quick actions to simpler text for generating response
+            let userText = action;
+            if (action === 'Download Resume') userText = 'resume';
+            if (action === 'Contact Info') userText = 'contact';
+            if (action === 'View Skills') userText = 'skill';
+
+            // Still show the full button text as user message for clarity
+            addMessage(action, true);
+            generateResponse(userText);
+        }
+
+        function sendUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, true);
+            chatInput.value = '';
+            generateResponse(text);
+        }
+
+        function generateResponse(userText) {
+            // Simulate typing delay
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex items-start gap-2 animate-fade-in';
+            typingDiv.innerHTML = `<div class="w-8 h-8 rounded-full bg-accent-purple/20 flex items-center justify-center text-accent-purple shrink-0"><i class="fa-solid fa-robot"></i></div>
+                 <div class="bg-gray-800 p-3 rounded-2xl rounded-tl-none text-gray-300 flex gap-1 items-center">
+                    <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                 </div>`;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) indicator.remove();
+
+                const lowerText = userText.toLowerCase();
+                let reply = "";
+
+                // Logic based on keywords
+                if (lowerText.includes('skill') || lowerText.includes('stack') || lowerText.includes('technology')) {
+                    reply = `<strong>I have a diverse skill set across multiple domains:</strong><br><br>
+                             💻 <strong>Programming:</strong> Python (Advanced), JavaScript, C.<br>
+                             📊 <strong>Data Science:</strong> Pandas, NumPy, EDA, DataViz (Matplotlib/Seaborn).<br>
+                             🧠 <strong>ML & AI:</strong> Supervised/Unsupervised Learning, Regression, Feature Engineering.<br>
+                             🛠 <strong>Tools:</strong> SQL, Git, Jupyter, PowerBI, VS Code.<br>
+                             🌐 <strong>Web:</strong> HTML, CSS, FastAPI basics.`;
+                }
+                else if (lowerText.includes('project') || lowerText.includes('work')) {
+                    reply = `<strong>Here are my featured projects:</strong><br><br>
+                             1. 🛍️ <strong>Diwali Sale Analysis</strong>: Analyzed sales trends and revenue spikes.<br>
+                             2. 📉 <strong>Customer Churn Prediction</strong>: ML model to predict customer retention.<br>
+                             3. 🌿 <strong>Disease Classification</strong>: CNN model for plant disease detection.`;
+                }
+                else if (lowerText.includes('about') || lowerText.includes('who is suman') || lowerText.includes('who are you')) {
+                    reply = "<strong>Who is Suman?</strong><br>I'm a passionate <strong>Data Scientist & AI Enthusiast</strong>. I love turning raw data into meaningful insights and building intelligent models. I'm constantly learning and exploring the frontiers of AI technology!";
+                }
+                else if (lowerText.includes('certificate') || lowerText.includes('certif')) {
+                    reply = "<strong>My Certifications:</strong><br>🎓 <strong>Python</strong> by Meta<br>🎓 <strong>PowerBI</strong> by Microsoft<br>These confirm my expertise in data analysis and visualization.";
+                }
+                else if (lowerText.includes('internship') || lowerText.includes('experience')) {
+                    reply = "I have experience working on real-world data problems. Check out my <strong>Experience</strong> section (scrolling there now!) to see my internship details.";
+                    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+                }
+                else if (lowerText.includes('resume') || lowerText.includes('cv') || lowerText.includes('download')) {
+                    reply = "You can view and download my resume here: <a href='./sumanresume.pdf' target='_blank' class='text-accent-cyan underline font-bold'>Open Resume</a>.";
+                }
+                else if (lowerText.includes('contact') || lowerText.includes('mail') || lowerText.includes('phone') || lowerText.includes('call')) {
+                    reply = "📞 <strong>Phone:</strong> +91 8250083369<br>📧 <strong>Email:</strong> banerjeesuman339@gmail.com";
+                }
+                else if (lowerText.includes('github') || lowerText.includes('git')) {
+                    reply = "Check out my code on GitHub: <a href='https://github.com/codewithsumanbyte' target='_blank' class='text-accent-cyan underline'>@codewithsumanbyte</a>";
+                }
+                else if (lowerText.includes('hello') || lowerText.includes('hi') || lowerText.includes('hey')) {
+                    reply = "Hello! I'm here to help. Try asking about my **skills**, **projects**, or **who is Suman**!";
+                }
+                else {
+                    reply = "⚠️ <span class='text-red-400'>Data Not Found.</span><br> I couldn't find information matching your query. Please ask about 'skills', 'projects', 'resume', or 'contact'.";
+                }
+
+                addMessage(reply);
+            }, 800);
+        }
+        // Initialize tsParticles with "Data Science" (Network of Dots) theme
+        (async () => {
+            await loadSlim(tsParticles);
+
+            await tsParticles.load({
+                id: "tsparticles",
+                options: {
+                    background: {
+                        color: {
+                            value: "#000000",
+                        },
+                    },
+                    fpsLimit: 120,
+                    interactivity: {
+                        events: {
+                            onClick: {
+                                enable: true,
+                                mode: "push",
+                            },
+                            onHover: {
+                                enable: true,
+                                mode: "grab", // Connect info on hover
+                            },
+                            resize: true,
+                        },
+                        modes: {
+                            push: {
+                                quantity: 4,
+                            },
+                            grab: {
+                                distance: 140,
+                                links: {
+                                    opacity: 1,
+                                },
+                            },
+                        },
+                    },
+                    particles: {
+                        color: {
+                            value: "#00f2ff", // Cyan accent
+                        },
+                        links: {
+                            color: "#bd00ff", // Purple accent links
+                            distance: 150,
+                            enable: true,
+                            opacity: 0.2, // Subtle links
+                            width: 1,
+                        },
+                        move: {
+                            direction: "none",
+                            enable: true,
+                            outModes: {
+                                default: "bounce",
+                            },
+                            random: false,
+                            speed: 1, // Slow movement
+                            straight: false,
+                        },
+                        number: {
+                            density: {
+                                enable: true,
+                                area: 800,
+                            },
+                            value: 80,
+                        },
+                        opacity: {
+                            value: 0.5,
+                        },
+                        shape: {
+                            type: "circle",
+                        },
+                        size: {
+                            value: { min: 1, max: 3 },
+                        },
+                    },
+                    detectRetina: true,
+                },
+            });
+        })();
+
+        // Spotlight Effect Script
+        document.querySelectorAll('.glass').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Interactive Terminal Logic
+        const terminalModal = document.getElementById('terminal-modal');
+        const terminalToggle = document.getElementById('terminal-trigger-about');
+        const closeTerminalBtn = document.getElementById('close-terminal');
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalBody = document.getElementById('terminal-body');
+
+        // Commands Database
+        const commands = {
+            help: {
+                desc: "List all available commands",
+                output: `<div class="grid grid-cols-[100px_1fr] gap-2">
+                            <span class="text-yellow-400">help</span><span>Show this help message</span>
+                            <span class="text-yellow-400">whoami</span><span>Display user profile</span>
+                            <span class="text-yellow-400">skills</span><span>List technical skills</span>
+                            <span class="text-yellow-400">projects</span><span>List featured projects</span>
+                            <span class="text-yellow-400">contact</span><span>Show contact information</span>
+                            <span class="text-yellow-400">clear</span><span>Clear the terminal</span>
+                            <span class="text-yellow-400">exit</span><span>Close terminal</span>
+                         </div>`
+            },
+            whoami: {
+                desc: "Display profile",
+                output: `I am <span class="text-accent-cyan font-bold">Suman Banerjee</span>, a Data Scientist and AI Enthusiast.<br>I specialize in building predictive models, analyzing complex datasets, and creating intelligent systems.`
+            },
+            skills: {
+                desc: "List skills",
+                output: `<div>
+                            <p class="text-blue-400 font-bold mb-1">Languages:</p> Python, JavaScript, C, SQL
+                            <p class="text-orange-400 font-bold mt-2 mb-1">Data Science:</p> Pandas, NumPy, Matplotlib, Seaborn
+                            <p class="text-green-400 font-bold mt-2 mb-1">Machine Learning:</p> Scikit-learn, TensorFlow, Keras
+                         </div>`
+            },
+            projects: {
+                desc: "List projects",
+                output: `<div>
+                            <p>1. <span class="text-accent-purple font-bold">Diwali Sale Analysis</span> - Sales data analysis</p>
+                            <p>2. <span class="text-accent-cyan font-bold">Customer Churn Prediction</span> - ML Classification</p>
+                            <p>3. <span class="text-accent-pink font-bold">Disease Classification</span> - CNN Image Processing</p>
+                            <p class="text-gray-500 mt-2">Type 'cat project1' for more details (Coming Soon)</p>
+                         </div>`
+            },
+            contact: {
+                desc: "Contact info",
+                output: `Email: <a href="mailto:banerjeesuman339@gmail.com" class="text-blue-400 underline">banerjeesuman339@gmail.com</a><br>
+                         Phone: +91 8250083369<br>
+                         GitHub: <a href="https://github.com/codewithsumanbyte" target="_blank" class="text-blue-400 underline">codewithsumanbyte</a>`
+            }
+        };
+
+        // Toggle Terminal
+        terminalToggle.addEventListener('click', () => {
+            terminalModal.classList.remove('hidden');
+            terminalInput.focus();
+        });
+
+        closeTerminalBtn.addEventListener('click', () => {
+            terminalModal.classList.add('hidden');
+        });
+
+        // Handle Input
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const input = terminalInput.value.trim().toLowerCase();
+                if (input === '') return;
+
+                // Add command to history
+                addToOutput(`<div class="flex gap-2"><span class="text-green-400">➜</span> <span class="text-cyan-400">~</span> ${input}</div>`);
+
+                // Process command
+                if (input === 'clear') {
+                    terminalOutput.innerHTML = '';
+                } else if (input === 'exit') {
+                    terminalModal.classList.add('hidden');
+                } else if (commands[input]) {
+                    addToOutput(commands[input].output);
+                } else {
+                    addToOutput(`<span class="text-red-400">Command not found: ${input}. Type 'help' for available commands.</span>`);
+                }
+
+                terminalInput.value = '';
+                // Keep focus
+                terminalInput.focus();
+            }
+        });
+
+        function addToOutput(html) {
+            const div = document.createElement('div');
+            div.className = 'mb-2';
+            div.innerHTML = html;
+            terminalOutput.appendChild(div);
+            // Scroll to bottom
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Focus input when clicking anywhere in body
+        terminalBody.addEventListener('click', () => terminalInput.focus());
+
+    </script>
+    <script>
+        // Typewriter Effect
+        const typeWriterElement = document.getElementById('typewriter-text');
+        const roles = ["Data Scientist", "Data Analyst", "ML Engineer", "Python Developer"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+
+            if (isDeleting) {
+                typeWriterElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeWriterElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500; // Pause before new word
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start Typewriter
+        document.addEventListener('DOMContentLoaded', typeWriter);
+    </script>
+    <!-- Mobile Bottom Nav -->
+    <div class="mobile-nav md:hidden">
+        <ul>
+            <li class="active list" data-target="home">
+                <a href="#home">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li class="list" data-target="about">
+                <a href="#about">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <span class="text">About</span>
+                </a>
+            </li>
+            <li class="list" data-target="terminal">
+                <a href="javascript:void(0)"
+                    onclick="document.getElementById('terminal-toggle')?.click() || document.getElementById('terminal-trigger-about')?.click()">
+                    <span class="icon"><i class="fa-solid fa-terminal"></i></span>
+                    <span class="text">Terminal</span>
+                </a>
+            </li>
+            <li class="list" data-target="projects">
+                <a href="#projects">
+                    <span class="icon"><i class="fa-solid fa-folder-open"></i></span>
+                    <span class="text">Work</span>
+                </a>
+            </li>
+            <li class="list" data-target="contact">
+                <a href="#contact">
+                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                    <span class="text">Contact</span>
+                </a>
+            </li>
+            <div class="indicator"></div>
+        </ul>
+    </div>
+
+    <!-- Script for Liquid Nav -->
+    <script>
+        const list = document.querySelectorAll('.list');
+        function activeLink() {
+            list.forEach((item) =>
+                item.classList.remove('active'));
+            this.classList.add('active');
+        }
+        list.forEach((item) =>
+            item.addEventListener('click', activeLink));
+    </script>
+    <!-- Decrypting Text Effect Script -->
+    <script>
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        const hackerTexts = document.querySelectorAll(".hacker-text");
+
+        const decryptObserverOptions = {
+            threshold: 0.5
+        };
+
+        const hackerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    // Stop any existing interval to prevent overlapping
+                    if (target.dataset.interval) clearInterval(target.dataset.interval);
+
+                    let iteration = 0;
+                    const originalText = target.dataset.value;
+
+                    target.dataset.interval = setInterval(() => {
+                        target.innerText = originalText
+                            .split("")
+                            .map((letter, index) => {
+                                if (index < iteration) {
+                                    return originalText[index];
+                                }
+                                // Keep spaces as spaces
+                                if (letter === " ") return " ";
+                                return letters[Math.floor(Math.random() * letters.length)];
+                            })
+                            .join("");
+
+                        if (iteration >= originalText.length) {
+                            clearInterval(target.dataset.interval);
+                        }
+
+                        iteration += 1 / 3; // Speed control
+                    }, 30);
+
+                    // Unobserve after playing once (optional, or keep looking)
+                    // hackerObserver.unobserve(target);
+                }
+            });
+        }, decryptObserverOptions);
+
+        hackerTexts.forEach(text => {
+            hackerObserver.observe(text);
+        });
+    </script>
+    <!-- Gravity Physics Script -->
+    <script>
+        const gravityBtn = document.getElementById('gravity-btn');
+        const physicsCanvas = document.getElementById('physics-canvas');
+        const skillsGrid = document.getElementById('skills-grid');
+        let engine, render, runner;
+
+        gravityBtn.addEventListener('click', () => {
+            // Toggle Visibility
+            if (skillsGrid.classList.contains('hidden')) {
+                // Stop Physics (Revert)
+                skillsGrid.classList.remove('hidden');
+                physicsCanvas.classList.add('hidden');
+                gravityBtn.innerHTML = '<span class="relative z-10 flex items-center gap-2 text-sm font-mono text-accent-cyan"><i class="fa-solid fa-cube"></i> Enable Physics</span><div class="absolute inset-0 bg-gradient-to-r from-accent-cyan/20 to-accent-purple/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>';
+
+                // Cleanup Matter.js
+                if (render) {
+                    Matter.Render.stop(render);
+                    Matter.Runner.stop(runner);
+                    Matter.Composite.clear(engine.world);
+                    Matter.Engine.clear(engine);
+                    render.canvas.remove();
+                    render.canvas = null;
+                    render.context = null;
+                    render.textures = {};
+                }
+                return;
+            }
+
+            // Start Physics
+            skillsGrid.classList.add('hidden');
+            physicsCanvas.classList.remove('hidden');
+            gravityBtn.innerHTML = '<span class="relative z-10 flex items-center gap-2 text-sm font-mono text-white"><i class="fa-solid fa-rotate-left"></i> Reset View</span><div class="absolute inset-0 bg-red-500/20 translate-y-0 transition-transform duration-300"></div>';
+
+            // Matter.js Aliases
+            const Engine = Matter.Engine,
+                Render = Matter.Render,
+                Runner = Matter.Runner,
+                Bodies = Matter.Bodies,
+                Composite = Matter.Composite,
+                Mouse = Matter.Mouse,
+                MouseConstraint = Matter.MouseConstraint;
+
+            // Create Engine
+            engine = Engine.create();
+            const world = engine.world;
+
+            // Create Render
+            render = Render.create({
+                element: physicsCanvas,
+                engine: engine,
+                options: {
+                    width: physicsCanvas.clientWidth,
+                    height: 600,
+                    wireframes: false,
+                    background: 'transparent'
+                }
+            });
+
+            // Skills Data (Colors & Labels)
+            const skills = [
+                { label: 'Python', color: '#306998' }, { label: 'Pandas', color: '#150458' },
+                { label: 'NumPy', color: '#013243' }, { label: 'SQL', color: '#e38c00' },
+                { label: 'Git', color: '#f1502f' }, { label: 'ML', color: '#22c55e' },
+                { label: 'AI', color: '#a855f7' }, { label: 'TensorFlow', color: '#ff6f00' },
+                { label: 'Keras', color: '#d00000' }, { label: 'VS Code', color: '#007acc' },
+                { label: 'HTML', color: '#e34c26' }, { label: 'CSS', color: '#264de4' },
+                { label: 'FastAPI', color: '#009688' }, { label: 'Jupyter', color: '#f37726' }
+            ];
+
+            // Create Bodies
+            const bodies = [];
+            skills.forEach((skill, i) => {
+                const box = Bodies.rectangle(
+                    Math.random() * physicsCanvas.clientWidth, // Random X
+                    -Math.random() * 500 - 50, // Staggered Y (above screen)
+                    100, // Width
+                    50, // Height
+                    {
+                        render: {
+                            fillStyle: skill.color,
+                            strokeStyle: '#ffffff',
+                            lineWidth: 2,
+                        },
+                        chamfer: { radius: 5 }, // Rounded corners
+                        label: skill.label // Custom label for rendering text
+                    }
+                );
+                bodies.push(box);
+            });
+
+            // Boundaries (Ground only)
+            const ground = Bodies.rectangle(physicsCanvas.clientWidth / 2, 610, physicsCanvas.clientWidth, 20, { isStatic: true, render: { visible: false } });
+            const leftWall = Bodies.rectangle(0, 300, 20, 600, { isStatic: true, render: { visible: false } });
+            const rightWall = Bodies.rectangle(physicsCanvas.clientWidth, 300, 20, 600, { isStatic: true, render: { visible: false } });
+
+            Composite.add(world, [...bodies, ground, leftWall, rightWall]);
+
+            // Mouse Control
+            const mouse = Mouse.create(render.canvas);
+            const mouseConstraint = MouseConstraint.create(engine, {
+                mouse: mouse,
+                constraint: {
+                    stiffness: 0.2,
+                    render: { visible: false }
+                }
+            });
+            Composite.add(world, mouseConstraint);
+            render.mouse = mouse; // Sync mouse with render
+
+            // Custom Render Implementation for Text
+            Matter.Events.on(render, 'afterRender', function () {
+                const context = render.context;
+                context.font = 'bold 14px "Fira Code", monospace';
+                context.fillStyle = 'white';
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+
+                bodies.forEach((body, index) => {
+                    const { x, y } = body.position;
+                    const angle = body.angle;
+
+                    context.save();
+                    context.translate(x, y);
+                    context.rotate(angle);
+                    context.fillText(skills[index].label, 0, 0);
+                    context.restore();
+                });
+            });
+
+            // Run
+            Render.run(render);
+            runner = Runner.create();
+            Runner.run(runner, engine);
+        });
+    </script>
+    <!-- Overlay Menu Script -->
+    <script>
+        const menuTrigger = document.getElementById('menu-trigger');
+        const menuClose = document.getElementById('menu-close');
+        const navOverlay = document.getElementById('nav-overlay');
+
+        function openNav() {
+            navOverlay.classList.remove('-translate-y-full');
+        }
+
+        function closeNav() {
+            navOverlay.classList.add('-translate-y-full');
+        }
+
+        if (menuTrigger) menuTrigger.addEventListener('click', openNav);
+        if (menuClose) menuClose.addEventListener('click', closeNav);
+    </script>
+    <!-- Liquid Cursor Script -->
+    <script>
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with delay (handled by CSS transition)
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Magnetic / Hover Effect
+        const hoverables = document.querySelectorAll('a, button, .hoverable');
+
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(34, 211, 238, 0.1)'; // Cyan tint
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+    </script>
+    <!-- Audio UI Script (Custom Assets) -->
+    <!-- Skill Radar Script -->
+    <script>
+        const ctx = document.getElementById('skillRadarChart').getContext('2d');
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 400);
+
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Python', 'Machine Learning', 'Data Analysis', 'Deep Learning', 'SQL/Databases', 'Visualization'],
+                datasets: [{
+                    label: 'Skill Proficiency',
+                    data: [95, 85, 90, 80, 75, 88],
+                    fill: true,
+                    backgroundColor: 'rgba(0, 242, 255, 0.2)', // Cyan glow
+                    borderColor: '#00f2ff',
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#00f2ff',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#e5e7eb', // Text color
+                            font: {
+                                size: 12,
+                                family: "'Fira Code', monospace"
+                            }
+                        },
+                        ticks: {
+                            display: false, // Hide numbers
+                            backdropColor: 'transparent'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleFont: { family: "'Fira Code', monospace" },
+                        bodyFont: { family: "'Fira Code', monospace" },
+                        padding: 10,
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        displayColors: false,
+                        callbacks: {
+                            label: function (context) {
+                                return context.raw + '% Proficiency';
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+    </script>
+    <script>
+        const soundToggle = document.getElementById('sound-toggle');
+        const soundText = document.getElementById('sound-text');
+        const soundIcon = soundToggle.querySelector('i');
+
+        let soundEnabled = true;
+
+        // Custom Audio Assets
+        const clickAudio = new Audio('./sounds/mouse-click.mp3');
+
+        // Adjust volumes
+        clickAudio.volume = 0.5;
+
+        // Helper to play sound (Clone node for overlapping sounds)
+        function playSound(audioObj) {
+            if (!soundEnabled) return;
+            // cloneNode() ensures rapid playback without cutting off previous sound
+            const soundClone = audioObj.cloneNode();
+            soundClone.volume = audioObj.volume;
+            soundClone.play().catch(e => {
+                // Ignore initial autoplay blocks
+            });
+        }
+
+        // 2. Click Sound
+        function playClickSound() {
+            playSound(clickAudio);
+        }
+
+        // Toggle Logic
+        soundToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                soundText.innerText = "SOUND: ON";
+                soundIcon.className = "fa-solid fa-volume-high text-accent-cyan";
+                playClickSound(); // Confirm
+            } else {
+                soundText.innerText = "SOUND: OFF";
+                soundIcon.className = "fa-solid fa-volume-xmark";
+            }
+        });
+
+        // Interaction Sounds
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('click', () => playClickSound());
+        });
+    </script>
+    <!-- Living Code Loader -->
+    <script>
+        const codeElement = document.getElementById('code-content');
+        if (codeElement) {
+            const codeSnippet = `
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+class NeuralNet(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super(NeuralNet, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Linear(hidden_size, num_classes)
+    
+    def forward(self, x):
+        out = self.fc1(x)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
+
+# Initialize Model
+model = NeuralNet(input_size=28*28, hidden_size=500, num_classes=10)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# Training Loop
+for epoch in range(num_epochs):
+    for i, (images, labels) in enumerate(train_loader):
+        images = images.reshape(-1, 28*28)
+        
+        # Forward pass
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        
+        # Backward and optimize
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        print (f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+
+# Data Visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def plot_confusion_matrix(cm):
+    plt.figure(figsize=(10,7))
+    sns.heatmap(cm, annot=True, fmt='d')
+    plt.xlabel('Predicted')
+    plt.ylabel('Truth')
+    plt.show()
+
+# Deploying to Production...
+# System: Online
+# Security: High
+# User: Suman
+`;
+            // Repeat code to ensure smooth infinite scroll
+            codeElement.innerText = codeSnippet.repeat(4);
+        }
+    </script>
+    </script>
+    </script>
+
+    <!-- Magnetic Buttons Script -->
+    <script>
+        const magneticBtns = document.querySelectorAll('a, button'); // Apply to all interactables
+
+        magneticBtns.forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+                const position = btn.getBoundingClientRect();
+                const x = e.clientX - position.left - position.width / 2;
+                const y = e.clientY - position.top - position.height / 2;
+
+                // Strength of magnetism
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseout', () => {
+                btn.style.transform = 'translate(0px, 0px)';
+                btn.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    btn.style.transition = '';
+                }, 300);
+            });
+        });
+    </script>
+
+    <!-- Confusion Matrix Easter Egg Script -->
+    <script>
+        const matrixTrigger = document.getElementById('matrix-trigger');
+        const matrixModal = document.getElementById('matrix-modal');
+        const closeMatrix = document.getElementById('close-matrix');
+
+        matrixTrigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card flip
+            matrixModal.classList.remove('hidden');
+            matrixModal.classList.add('flex');
+        });
+
+        closeMatrix.addEventListener('click', () => {
+            matrixModal.classList.add('hidden');
+            matrixModal.classList.remove('flex');
+        });
+
+        // Close on outside click
+        matrixModal.addEventListener('click', (e) => {
+            if (e.target === matrixModal) {
+                matrixModal.classList.add('hidden');
+                matrixModal.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+
+</html>
